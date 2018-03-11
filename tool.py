@@ -1,10 +1,13 @@
-#coding: utf-8
+# -*-coding: utf-8-*-
 from PIL import Image
 import os
 import sys
 import json
 from datetime import datetime
 from ImageProcess import Graphics
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 # 定义压缩比，数值越大，压缩越小
 SIZE_normal = 1.0
@@ -102,6 +105,7 @@ def handle_photo():
         filename = file_list[i]
         date_str, info = filename.split("_")
         info, _ = info.split(".")
+        info = info.encode('utf-8').strip()
         date = datetime.strptime(date_str, "%Y-%m-%d")
         year_month = date_str[0:7]            
         if i == 0:  # 处理第一个文件
@@ -128,7 +132,7 @@ def handle_photo():
             list_info[-1]['arr']['type'].append('image')
     list_info.reverse()  # 翻转
     final_dict = {"list": list_info}
-    with open("../highflykxf.github.io/source/photos/data.json","w") as fp:
+    with open("../hexo_test/source/photos/data.json","w") as fp:
         json.dump(final_dict, fp)
 
 def cut_photo():
